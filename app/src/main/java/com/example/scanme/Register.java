@@ -2,63 +2,113 @@ package com.example.scanme;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link Register#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.example.scanme.databinding.FragmentRegisterBinding;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import org.w3c.dom.Text;
+
+
 public class Register extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private FragmentRegisterBinding registerBinding;
+    private FirebaseAuth mAuth;
+    NavController navController;
 
     public Register() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Register.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static Register newInstance(String param1, String param2) {
-        Register fragment = new Register();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        mAuth = FirebaseAuth.getInstance();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        registerBinding = null;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_register, container, false);
+        registerBinding = FragmentRegisterBinding.inflate(inflater, container, false);
+        return registerBinding.getRoot();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        navController = Navigation.findNavController(view);
+
+
+        registerBinding.tvSignIn.setOnClickListener(v -> navController.navigate(R.id.action_register_to_login));
+
+        registerBinding.btnCreateAccount.setOnClickListener(v -> {
+            String name = registerBinding.etName.getText().toString().trim();
+            String fName = registerBinding.etFamilyName.getText().toString().trim();
+            String email = registerBinding.etEmail.getText().toString().trim();
+            String password = registerBinding.etPassword.getText().toString().trim();
+
+            if (TextUtils.isEmpty(name)){
+                registerBinding.etName.setError("Oops, please enter your name");
+                return;
+            }
+            if (TextUtils.isEmpty(fName)){
+                registerBinding.etFamilyName.setError("Oops, please enter your family name");
+                return;
+            }
+            if (TextUtils.isEmpty(email)){
+                registerBinding.etEmail.setError("Oops, please enter your email address");
+                return;
+            }
+            if (TextUtils.isEmpty(password)){
+                registerBinding.etPassword.setError("Oops, please set a password");
+                return;
+            }
+
+            registerBinding.progressBar.setVisibility(View.VISIBLE);
+
+            mAuth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()){
+                                Toast.makeText(getActivity(), "Registered Successfully", Toast.LENGTH_SHORT).show();
+                                navController.navigate(R.id.action_register_to_menuNavigation);
+                                registerBinding.progressBar.setVisibility(View.INVISIBLE);
+                            }
+                            else {
+                                Toast.makeText(getActivity(), "Error!"+ task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                registerBinding.progressBar.setVisibility(View.INVISIBLE);
+                            }
+                        }
+                    });
+
+        });
     }
 }

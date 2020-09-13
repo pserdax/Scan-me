@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "317558549750",
+    "firebase_url": "https://scan-mi.firebaseio.com",
+    "project_id": "scan-mi",
+    "storage_bucket": "scan-mi.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:317558549750:android:2d66d712df1a72162ad0d7",
+        "android_client_info": {
+          "package_name": "com.example.scanme"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "317558549750-0qb5sfvgvqhn6u8dsd2svbeirjqhfau2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.scanme",
+            "certificate_hash": "6d4800008f61bf61668b8539e13dbcd4f28a3724"
+          }
+        },
+        {
+          "client_id": "317558549750-tc4ns6jf2f5tp6uko7ouvh39033lrs64.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTi5vsp96BXpChzyAfNaCiKN7-dCr8H6c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "317558549750-tc4ns6jf2f5tp6uko7ouvh39033lrs64.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
