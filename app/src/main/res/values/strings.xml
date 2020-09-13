@@ -14,4 +14,22 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="tv_welcome_again">Welcome again</string>
+    <string name="tv_description_join_us">Heyyyy! Can you feel how happy we are? :)</string>
+    <string name="btn_with_google">Continue with Google</string>
+    <string name="btn_sign_in">Sign in</string>
+    <string name="btn_create_account">Create account</string>
+    <string name="tv_not_a_member">Not a member of our family yet?</string>
+
+    <string name="tv_or">or</string>
+    <string name="tv_create_account">Join us</string>
+    <string name="tv_join_us">Join our family</string>
+    <string name="tv_sign_in">Sign in</string>
+    <string name="tv_already_have_an_account">Already family member yet?</string>
+
+    <string name="hint_email">youremail@address.com</string>
+    <string name="hint_password">Pas**rd</string>
+    <string name="hint_name">Name</string>
+    <string name="hint_surname">Surname</string>
+    <string name="hint_phone_number">Phone number</string>
 </resources>
