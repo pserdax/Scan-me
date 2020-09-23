@@ -65,6 +65,7 @@ public class QrCodeScan extends Fragment implements ZXingScannerView.ResultHandl
 
         mScannerView.setResultHandler(this);
         mScannerView.startCamera();
+        
     }
 
     @Override

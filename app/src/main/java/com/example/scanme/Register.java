@@ -65,7 +65,6 @@ public class Register extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
 
-
         registerBinding.tvSignIn.setOnClickListener(v -> navController.navigate(R.id.action_register_to_login));
 
         registerBinding.btnCreateAccount.setOnClickListener(v -> {

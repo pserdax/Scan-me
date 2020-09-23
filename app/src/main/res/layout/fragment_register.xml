@@ -25,7 +25,7 @@
             android:gravity="center"
             android:text="@string/tv_join_us"
             android:textColor="@color/colorBlack"
-            android:textSize="@dimen/twenty_four"
+            android:textSize="@dimen/twenty_four_sp"
             android:fontFamily="@font/sfsemibold"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -86,14 +86,14 @@
             android:id="@+id/et_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="48dp"
-            android:layout_marginLeft="48dp"
             android:layout_marginTop="@dimen/thirty_two_dp"
             android:background="@drawable/tv_border"
             android:fontFamily="@font/sfregular"
             android:hint="@string/hint_name"
-            android:paddingLeft="@dimen/eight_dp"
+            android:paddingStart="@dimen/eight_dp"
             android:textSize="@dimen/size_generic"
+            app:layout_constraintEnd_toStartOf="@+id/et_family_name"
+            app:layout_constraintHorizontal_bias="0.005"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/img_line" />
 
@@ -102,21 +102,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/thirty_two_dp"
-            android:layout_marginEnd="48dp"
-            android:layout_marginRight="48dp"
             android:background="@drawable/tv_border"
             android:fontFamily="@font/sfregular"
             android:hint="@string/hint_surname"
-            android:paddingLeft="@dimen/eight_dp"
+            android:paddingStart="@dimen/eight_dp"
             android:textSize="@dimen/size_generic"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/et_name"
             app:layout_constraintTop_toBottomOf="@id/img_line" />
 
         <EditText
             android:id="@+id/et_phone_number"
             android:hint="@string/hint_phone_number"
             android:inputType="number"
-            android:paddingLeft="@dimen/eight_dp"
+            android:paddingStart="@dimen/eight_dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/sfregular"
@@ -125,7 +125,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_name"
-            android:layout_marginTop="16dp" />
+            android:layout_marginTop="16dp"
+            tools:ignore="RtlSymmetry,TextFields" />
 
         <EditText
             android:id="@+id/et_email"
@@ -177,9 +178,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="68dp"
-            android:layout_marginLeft="68dp"
             android:layout_marginTop="40dp"
             android:src="@drawable/ic_google"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.021"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_description_join_us" />
 
@@ -194,6 +196,7 @@
             android:textColor="@color/colorGeneric"
             android:textSize="@dimen/size_generic"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tv_sign_in"
             app:layout_constraintTop_toBottomOf="@id/btn_create_account" />
 
         <TextView
@@ -207,6 +210,7 @@
             android:textColor="@color/blue"
             android:textSize="@dimen/size_generic"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_already_have_account"
             app:layout_constraintTop_toBottomOf="@id/btn_create_account" />
 
         <ProgressBar
