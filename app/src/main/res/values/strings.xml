@@ -32,4 +32,8 @@
     <string name="hint_name">Name</string>
     <string name="hint_surname">Surname</string>
     <string name="hint_phone_number">Phone number</string>
+
+<!--    ITEM IN RECYCLER VIEW-->
+    <string name="txt_scanned_item">I am text of scanned item</string>
+    <string name="txt_scanned_date">02.10.2020, 23:00</string>
 </resources>

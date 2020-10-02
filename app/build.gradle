@@ -52,4 +52,10 @@ dependencies {
     //zxing library for qr code scanning
     implementation 'me.dm7.barcodescanner:zxing:1.9.13'
 
+    //RecyclerView
+
+    // round Image View lib
+    compile 'com.makeramen:roundedimageview:2.3.0'
+
+
 }

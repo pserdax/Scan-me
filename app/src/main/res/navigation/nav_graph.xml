@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/login">
+    app:startDestination="@id/menuNavigation">
 
     <fragment
         android:id="@+id/qrCodeScan"
@@ -18,29 +18,5 @@
         <action
             android:id="@+id/action_menuNavigation_to_qrCodeScan"
             app:destination="@id/qrCodeScan" />
-    </fragment>
-    <fragment
-        android:id="@+id/register"
-        android:name="com.example.scanme.Register"
-        android:label="fragment_register"
-        tools:layout="@layout/fragment_register" >
-        <action
-            android:id="@+id/action_register_to_menuNavigation"
-            app:destination="@id/menuNavigation" />
-        <action
-            android:id="@+id/action_register_to_login"
-            app:destination="@id/login" />
-    </fragment>
-    <fragment
-        android:id="@+id/login"
-        android:name="com.example.scanme.Login"
-        android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
-        <action
-            android:id="@+id/action_login_to_menuNavigation"
-            app:destination="@id/menuNavigation" />
-        <action
-            android:id="@+id/action_login_to_register"
-            app:destination="@id/register" />
     </fragment>
 </navigation>
