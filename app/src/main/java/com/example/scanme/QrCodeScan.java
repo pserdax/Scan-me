@@ -11,6 +11,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.room.Room;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,6 +21,9 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.google.zxing.Result;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
@@ -29,6 +34,9 @@ public class QrCodeScan extends Fragment implements ZXingScannerView.ResultHandl
     private ZXingScannerView mScannerView;
     private static final int REQUEST_CAMERA =1;
 
+    List<MainData> dataList = new ArrayList<>();
+    LinearLayoutManager linearLayoutManager;
+    RoomDB database;
     public QrCodeScan() {
         // Required empty public constructor
     }
@@ -38,6 +46,15 @@ public class QrCodeScan extends Fragment implements ZXingScannerView.ResultHandl
         super.onCreate(savedInstanceState);
         mScannerView = new ZXingScannerView(getContext());
         getActivity().setContentView(mScannerView);
+
+        // Initialize database
+        database = RoomDB.getInstance(getActivity());
+
+        //Store database value in data list
+        dataList = database.mainDao().getAll();
+
+        // Initialize linear layout manager
+        linearLayoutManager = new LinearLayoutManager(getActivity());
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkPermission()) {
@@ -124,15 +141,35 @@ public class QrCodeScan extends Fragment implements ZXingScannerView.ResultHandl
 
     @Override
     public void handleResult(Result result) {
-        final String scanResult = result.getText();
+        final String scanResult = result.getText().trim();
         AlertDialog.Builder builder =  new AlertDialog.Builder(getActivity());
         builder.setTitle("Scan Result is in the following");
-        builder.setPositiveButton("SAVE", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("DISCOVER", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
             }
         });
+
+        builder.setPositiveButton("SAVE", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                //initialize main data
+                MainData data = new MainData();
+
+                //Set text on main data
+                data.setText(scanResult);
+
+                //Insert text in database
+                database.mainDao().insert(data);
+
+                dataList.addAll(database.mainDao().getAll());
+
+
+            }
+        });
+
         builder.setMessage(scanResult);
         AlertDialog alert = builder.create();
         alert.show();
