@@ -22,7 +22,9 @@ import android.widget.Toast;
 
 import com.google.zxing.Result;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
@@ -155,8 +157,15 @@ public class QrCodeScan extends Fragment implements ZXingScannerView.ResultHandl
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
+                database.mainDao().reset(dataList);
+
                 //initialize main data
                 MainData data = new MainData();
+
+                //Get current date and time;
+                long time =  System.currentTimeMillis();
+                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                String dateAndTime = formatter.format(new Date(Long.parseLong(String.valueOf(time))));
 
                 //Set text on main data
                 data.setText(scanResult);
@@ -165,7 +174,7 @@ public class QrCodeScan extends Fragment implements ZXingScannerView.ResultHandl
                 database.mainDao().insert(data);
 
                 dataList.addAll(database.mainDao().getAll());
-
+                mScannerView.resumeCameraPreview(QrCodeScan.this::handleResult);
 
             }
         });

@@ -8,7 +8,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 //Add database entities
-@Database(entities = {MainData.class}, version = 1, exportSchema = false)
+@Database(entities = {MainData.class}, version = 6, exportSchema = false)
 public abstract class RoomDB extends RoomDatabase {
 
     //Create database instance
