@@ -1,7 +1,9 @@
 package com.example.scanme;
 
 import android.app.AlertDialog;
+import android.app.SearchManager;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Camera;
 import android.os.Build;
@@ -146,10 +148,14 @@ public class QrCodeScan extends Fragment implements ZXingScannerView.ResultHandl
         final String scanResult = result.getText().trim();
         AlertDialog.Builder builder =  new AlertDialog.Builder(getActivity());
         builder.setTitle("Scan Result is in the following");
+
+
         builder.setNegativeButton("DISCOVER", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
+                intent.putExtra(SearchManager.QUERY, scanResult);
+                startActivity(intent);
             }
         });
 
