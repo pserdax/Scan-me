@@ -9,7 +9,11 @@
         android:id="@+id/qrCodeScan"
         android:name="com.example.scanme.QrCodeScan"
         android:label="qr_code_scan"
-        tools:layout="@layout/qr_code_scan" />
+        tools:layout="@layout/qr_code_scan" >
+        <action
+            android:id="@+id/action_qrCodeScan_to_menuNavigation"
+            app:destination="@id/menuNavigation" />
+    </fragment>
     <fragment
         android:id="@+id/menuNavigation"
         android:name="com.example.scanme.MenuNavigation"
@@ -17,6 +21,6 @@
         tools:layout="@layout/menu">
         <action
             android:id="@+id/action_menuNavigation_to_qrCodeScan"
-            app:destination="@id/qrCodeScan" />
+            app:destination="@id/qrCodeScan"/>
     </fragment>
 </navigation>

@@ -5,7 +5,6 @@ import android.app.SearchManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Camera;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -13,10 +12,10 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.navigation.NavController;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.room.Room;
 
-import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,9 +23,7 @@ import android.widget.Toast;
 
 import com.google.zxing.Result;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
@@ -86,6 +83,24 @@ public class QrCodeScan extends Fragment implements ZXingScannerView.ResultHandl
 
         mScannerView.setResultHandler(this);
         mScannerView.startCamera();
+
+        if(getView() == null){
+            return;
+        }
+
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK){
+                    // handle back button's click listener
+                    return true;
+                }
+                return false;
+            }
+        });
         
     }
 
@@ -163,23 +178,16 @@ public class QrCodeScan extends Fragment implements ZXingScannerView.ResultHandl
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-                database.mainDao().reset(dataList);
-
                 //initialize main data
                 MainData data = new MainData();
-
-                //Get current date and time;
-                long time =  System.currentTimeMillis();
-                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-                String dateAndTime = formatter.format(new Date(Long.parseLong(String.valueOf(time))));
 
                 //Set text on main data
                 data.setText(scanResult);
 
                 //Insert text in database
                 database.mainDao().insert(data);
-
                 dataList.addAll(database.mainDao().getAll());
+
                 mScannerView.resumeCameraPreview(QrCodeScan.this::handleResult);
 
             }

@@ -33,7 +33,7 @@ public class Favourites extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view  = inflater.inflate(R.layout.favourites_scan, container, false);
+          View view  = inflater.inflate(R.layout.favourites_scan, container, false);
         // Inflate the layout for this fragment
         recyclerView = view.findViewById(R.id.recyclerView);
 

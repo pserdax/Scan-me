@@ -3,19 +3,16 @@ package com.example.scanme;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-import androidx.room.TypeConverter;
-import androidx.room.TypeConverters;
 
 //Define table name
 @Entity(tableName = "scanned_results")
 
 public class MainData {
-
     //Create id column
     @PrimaryKey(autoGenerate = true)
     private int ID;
 
-    //Create text column  for scanned result
+    //Create text column
     @ColumnInfo(name = "text")
     private String text;
 
@@ -35,4 +32,5 @@ public class MainData {
     public void setText(String text) {
         this.text = text;
     }
+
 }
